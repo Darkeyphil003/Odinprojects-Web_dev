@@ -7,7 +7,116 @@
 
     <script src="rockPaperScissor.js" defer></script>
 </head>
-<body>
+<style>
+
+    *{
+        font-size: 62.5%;
+    }
+    body{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
     
+   
+    .main{
+        display: flex;
+        align-items: center;
+        flex-direction: column;     
+    }   
+    .main .round-counter{
+        width: 20rem;
+        padding-left: 2rem;
+        font-size: 5.5rem;
+        background-color: rgba(174,182,183);
+        margin-bottom: 1rem;
+    }
+    .main .play-area{
+        display: flex;
+        padding: 10rem;
+        margin-top: 10rem;
+        align-items: space-between;
+        background-color: beige;
+    }
+    .play-area ol li{
+        list-style: none;
+    }
+     
+    .main .play-area .cpu-img-div{
+        display: flex;
+        justify-content: center;
+    }
+    .main .play-area .cpu-img{
+        border: 2px solid black;
+    }
+    .main .play-area .user-img{
+        border: 2px solid black;
+
+    }
+    .main .play-area .user-img-div{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .play-area .cpu .health-bar-cpu{
+        background-color: black;
+        width: 10rem;
+    }
+    .play-area .user .health-bar-user{
+
+    }
+    .main .play-area img{
+        width:50%;
+        display: block;
+        height: auto;
+    }
+    .player-input img{
+        width: 50%;
+    }
+
+    
+</style>
+<body>
+    <div class="main">
+        <div class="round-counter">
+            <h1>Round: <span class="round-count"></span></h1>
+        </div>
+     <div class="play-area">
+        <div class="cpu">
+                <div class="cpu-img-div"> <img src="" alt="random-images" srcset="" class="cpu-img">
+                </div>
+                <div class="health-bar-cpu">
+                    <ol id="healthbar-cpu">
+                       <li class="health-cpu"></li>
+                       <li class="health-cpu"></li>
+                       <li class="health-cpu"></li>
+                       <li class="health-cpu"></li>
+                       <li class="health-cpu"></li>
+                    </ol>
+                </div> 
+        </div>
+        <div class="user">
+            <div class="user-img-div"> <img src="" alt="random-images" srcset="" class="user-img">
+            </div>
+            <div class="health-bar-user">
+                <ol id="healthbar-user">
+                   <li class="health-user"></li>
+                   <li class="health-user"></li>
+                   <li class="health-user"></li>
+                   <li class="health-user"></li>
+                   <li class="health-user"></li>
+                </ol>
+            </div> 
+        </div>
+     </div>
+
+     <div class="player-input">
+        <ol class="choices">
+            <li id="choices-rock"><img src="./images/rock.png" alt=""></li>
+            <li id="choices-paper"><img src="./images/paper.png" alt=""></li>
+            <li id="choices-scissor" ><img src="./images/scissor.png" alt=""></li>
+        </ol>
+     </div>
+    </div>
 </body>
 </html>
