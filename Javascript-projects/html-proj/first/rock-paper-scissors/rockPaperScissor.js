@@ -3,13 +3,35 @@
         'images/mike.jpg',
         'images/pepe.jpg'
     ]
-    const playThing = [
+    const playArray = [
             'images/rock.png',
             'images/scissor.png',
             'images/paper.png'
     ]
-    let computer_input_score;
-    let user_input_score;
+    let computer_input_score = 0;
+    let user_input_score = 0;
+    let userChoice;
+
+    //  Get all the li elements inside of the choices class
+    let choicesOfPlayer = document.querySelector(".choices").getElementsByTagName('li');
+
+    // simple loop that evaluate the length of the playArray array && choicesofPlayer HTML Collection
+    for(let i =0; i<playArray.length && i <choicesOfPlayer.length; i++){
+            choicesOfPlayer[i].querySelector('img').src = playArray[i];
+
+    }  
+
+    //  array that sets the user choice to a variable called userChoice
+    //  we use a for of 
+    const setUserChoice = () => {
+        for (const element of choicesOfPlayer) {
+            element.addEventListener("click", () => {
+                userChoice = Array.from(choicesOfPlayer).indexOf(element);
+            });
+        }
+    };
+    
+    setUserChoice();    
 
     //  roundCount Logic:
     //  I have to get the element object from the .round-count class
@@ -24,14 +46,13 @@
     //  after assigning the currentRound into the roundCount class
     //  i add + 1 into it in order to update it
     // and simply assign the new value back into the textcontent of roundCount
-    updateRound = () => {
+    let updateRound = () => {
         currentRound+=1;
         roundCount.textContent = currentRound;
     }
+    updateRound();
+    // playLogic
 
-
-
-   
    
 
     const getRandomImage = () =>{
@@ -48,8 +69,5 @@
         randomImageCpu.src = imageRandomIndexCpu;
         randomImageUser.src = imageRandomIndexUser;
 }
+    
     setRandomImage();
-    
-   
-    
-    
