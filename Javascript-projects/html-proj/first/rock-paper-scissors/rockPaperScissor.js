@@ -16,9 +16,7 @@
     }
 
    
-    let setComputerInputScore = () =>{
 
-    }
 
     const getRandomImage = () =>{
         const randomIndex = Math.floor(Math.random() * meme_pics.length);
@@ -31,7 +29,6 @@
         const randomImageCpu = document.querySelector(".cpu-img");
         const randomImageUser = document.querySelector(".user-img");
         
-
         randomImageCpu.src = imageRandomIndexCpu;
         randomImageUser.src = imageRandomIndexUser;
 }
