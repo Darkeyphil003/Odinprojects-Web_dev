@@ -53,18 +53,7 @@
           }
 
     }
-    // creating a new function... evaluateChoices to the returned promise object from setUserChoice
-    // the choice is logged for now for testing purposes
-    const playGame = async() => 
-    {
-       let userChoice = await setUserChoice;
-       let cpuChoice = await setCpuChoice();
-
-        // evaluation of the choices
-        evaluateLogic(userChoice, cpuChoice);
-        console.log(`${userChoice} , ${cpuChoice}`);
-
-    };
+ 
 
 
     //  roundCount Logic:
@@ -85,10 +74,6 @@
         roundCount.textContent = currentRound;
     }
    
-   
-
-   
-
 const getRandomImage = () =>{
         const randomIndex = Math.floor(Math.random() * meme_pics.length);
         return meme_pics[randomIndex];
@@ -103,7 +88,20 @@ const getRandomImage = () =>{
         randomImageCpu.src = imageRandomIndexCpu;
         randomImageUser.src = imageRandomIndexUser;
 }
-  // playLogic
+
+      // playLogic
+     // creating a new async function... playGame this function will handle all the logic of the game
+     
+    const playGame = async() => 
+    {
+       let userChoice = await setUserChoice;
+       let cpuChoice = await setCpuChoice();
+
+        // evaluation of the choices
+        evaluateLogic(userChoice, cpuChoice);
+        console.log(`${userChoice} , ${cpuChoice}`);
+
+    };
     setRandomImage();
     playGame();
     
