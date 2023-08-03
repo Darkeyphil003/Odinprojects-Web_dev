@@ -8,9 +8,9 @@
             'images/scissor.png',
             'images/paper.png'
     ]
+
     let computer_input_score = 0;
     let user_input_score = 0;
-    let userChoice;
 
     //  Get all the li elements inside of the choices class
     let choicesOfPlayer = document.querySelector(".choices").getElementsByTagName('li');
@@ -18,20 +18,42 @@
     // simple loop that evaluate the length of the playArray array && choicesofPlayer HTML Collection
     for(let i =0; i<playArray.length && i <choicesOfPlayer.length; i++){
             choicesOfPlayer[i].querySelector('img').src = playArray[i];
-
-    }  
-
-    //  array that sets the user choice to a variable called userChoice
-    //  we use a for of 
-    const setUserChoice = () => {
-        for (const element of choicesOfPlayer) {
-            element.addEventListener("click", () => {
-                userChoice = Array.from(choicesOfPlayer).indexOf(element);
-            });
-        }
-    };
+    }
     
-    setUserChoice();    
+    // setCpuChoice logic here:
+        const setCpuChoice = async() =>{
+        const cpuChoice = Math.floor(Math.random()*playArray.length)
+        return cpuChoice;
+        }
+    console.log(setCpuChoice());
+    // set the user choice function with a promise intact
+    // first we loop through the indices of choicesofplayer array according to its length
+    //  then we assign a simple event listener to each of them 
+    const setUserChoice = new Promise((resolve) => {
+        for(let i = 0; i< choicesOfPlayer.length; i++){
+            choicesOfPlayer[i].addEventListener("click", () =>{
+            resolve(i);
+            })
+    }})
+    const evaluateLogic = async(userChoice, cpuChoice) =>{
+
+    }
+    // creating a new function... evaluateChoices to the returned promise object from setUserChoice
+    // the choice is logged for now for testing purposes
+    const evaluateChoices =() => 
+    {setUserChoice.then((userChoice) => {
+        
+        // setcpuchoice here    
+
+
+
+        // final evaluate logic
+        
+    }
+    
+    
+        )};
+
 
     //  roundCount Logic:
     //  I have to get the element object from the .round-count class
@@ -50,8 +72,8 @@
         currentRound+=1;
         roundCount.textContent = currentRound;
     }
-    updateRound();
-    // playLogic
+   
+   
 
    
 
@@ -69,5 +91,7 @@
         randomImageCpu.src = imageRandomIndexCpu;
         randomImageUser.src = imageRandomIndexUser;
 }
-    
+  // playLogic
+    updateRound();
+    evaluateChoices();
     setRandomImage();
