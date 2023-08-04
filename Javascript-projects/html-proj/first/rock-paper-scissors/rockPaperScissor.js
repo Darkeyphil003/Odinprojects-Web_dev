@@ -9,8 +9,7 @@
             'images/paper.png'
     ]
 
-    let computer_score = 0;
-    let user_score = 0;
+  
 
     //  Get all the li elements inside of the choices class
     let choicesOfPlayer = document.querySelector(".choices").getElementsByTagName('li');
@@ -35,8 +34,11 @@
             resolve(i);
             })
     }})
-    const evaluateLogic = async(userChoice, cpuChoice) =>{
-
+    let computer_score = 0;
+    let user_score = 0;
+    const evaluateLogic = (userChoice, cpuChoice) =>{
+       
+      let updatedScores = { userScore:user_score, cpuScore:computer_score }
         if (userChoice === cpuChoice) {
             updateRound()
           } else if (
@@ -45,13 +47,15 @@
             (userChoice === 1 && cpuChoice === 2)
           ) {
             updateRound()
-            return user_score += 1;
+            updatedScores.userScore+=1;
             
           } else {
             updateRound()
-            return computer_score+=1;
+            updatedScores.cpuScore+=1;
           }
 
+          return updatedScores;
+         
     }
  
 
@@ -98,9 +102,13 @@ const getRandomImage = () =>{
        let cpuChoice = await setCpuChoice();
 
         // evaluation of the choices
-        evaluateLogic(userChoice, cpuChoice);
-        console.log(`${userChoice} , ${cpuChoice}`);
-
+        const updateScores = await evaluateLogic(userChoice, cpuChoice);
+        
+        user_score = updateScores.userScore;
+        computer_score = updateScores.cpuScore;
+        console.log(`${userChoice},  ${cpuChoice}`);
+        console.log(`${user_score} ${computer_score}`);
+        
     };
     setRandomImage();
     playGame();
