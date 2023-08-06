@@ -91,12 +91,45 @@ const getRandomImage = () =>{
         randomImageUser.src = imageRandomIndexUser;
 }
 
+// getting the healthbar
+const healthbar  = Array.from(document.querySelectorAll(".health-bar-cpu, .health-bar-user"));
+const contextCPU = healthbar[0].getContext("2d");
+const contextUser = healthbar[1].getContext("2d");
+
+// computer
+let currentHeightComputer = healthbar[0].height;
+let currentWidthComputer = healthbar[0].width;
+// User
+let currentWidthUser = healthbar[1].width;
+let currentHeightUser = healthbar[1].height;
+// color
+let colorOfHealthBar = "green";
+// maxhealth 
+let healthCpu = 100;
+let healthUser = 100;
+
+const healthbarCpu = new HealthBar(currentWidthComputer,currentHeightComputer, healthCpu, colorOfHealthBar);
+const healthbarUser = new HealthBar(currentWidthUser,currentHeightUser,healthUser, colorOfHealthBar);
+
       // playLogic
      // creating a new async function... playGame this function will handle all the logic of the game
-     const winCondition = 5;
+    const winCondition = 5;
     const playGame = async() => 
-    {
-       let userChoice = await setUserChoice;
+    { const frame =() =>{ 
+      if(user_score> computer_score){
+        contextCPU.fillRect(0, 0, healthbarCpu.currentWidthComputer, healthbarCpu.currentHeightComputer)
+        healthbarCpu.show(contextCPU);
+      }
+      else if (computer_score> user_score){
+        contextUser.fillRect(0, 0, healthbarUser.currentWidthUser, healthbarUser.currentHeightUser)
+        healthbarUser.show(contextUser);
+
+      }
+      requestAnimationFrame(frame);
+  }
+
+      while(user_score != winCondition && computer_score != winCondition){ 
+        let userChoice = await setUserChoice;
        let cpuChoice = await setCpuChoice();
 
         // evaluation of the choices
@@ -105,44 +138,17 @@ const getRandomImage = () =>{
         computer_score = updateScores.cpuScore;
         console.log(`userChoice: ${userChoice} cpuChoice: ${cpuChoice} user_score: ${user_score} computer_score: ${computer_score}`);
         
-        
-          // getting the healthbar
-          const healthbar  = Array.from(document.querySelectorAll(".health-bar-cpu, .health-bar-user"));
-          const contextCPU = healthbar[0].getContext("2d");
-          const contextUser = healthbar[1].getContext("2d");
-
-          // computer
-          let currentHeightComputer = healthbar[0].height;
-          let currentWidthComputer = healthbar[0].width;
-          // User
-          let currentWidthUser = healthbar[1].width;
-          let currentHeightUser = healthbar[1].height;
-          // color
-          let colorOfHealthBar = "green";
-          // maxhealth 
-          let healthCpu = 100;
-          let healthUser = 100;
-
-        let healthbarCpu = new HealthBar(currentWidthComputer,currentHeightComputer, healthCpu, colorOfHealthBar);
-        let healthbarUser = new HealthBar(currentWidthUser,currentHeightUser,healthUser, colorOfHealthBar);
-
-        const frame =() =>{ 
-            if(user_score> computer_score){
-              contextCPU.fillRect(0, 0, healthbarCpu.currentWidthComputer, healthbarCpu.currentHeightComputer)
-              healthbarCpu.show(contextCPU);
-            }
-            else if (computer_score> user_score){
-              contextUser.fillRect(0, 0, healthbarUser.currentWidthUser, healthbarUser.currentHeightUser)
-              healthbarUser.show(contextUser);
-
-            }
-            requestAnimationFrame(frame);
+        // update health bar
+        if(user_score > computer_score){
+          healthbarCpu.updateHealth(healthCpu -=20)
+        }
+        else if(computer_score > user_score){
+          healthbarUser.updateHealth(healthUser -=20)
         }
         frame();
-        while(user_score!== winCondition && computer_score !== winCondition){
-          playGame();
-        }
+       
       };
+      }
     playGame();
     setRandomImage();
     
