@@ -9,8 +9,6 @@
             'images/paper.png'
     ]
 
-  
-
     //  Get all the li elements inside of the choices class
     let choicesOfPlayer = document.querySelector(".choices").getElementsByTagName('li');
 
@@ -102,14 +100,30 @@ const getRandomImage = () =>{
        let cpuChoice = await setCpuChoice();
 
         // evaluation of the choices
-        const updateScores = await evaluateLogic(userChoice, cpuChoice);
-        
+        const updateScores = evaluateLogic(userChoice, cpuChoice);
         user_score = updateScores.userScore;
         computer_score = updateScores.cpuScore;
-        console.log(`${userChoice},  ${cpuChoice}`);
-        console.log(`${user_score} ${computer_score}`);
+        console.log(`userChoice: ${userChoice} cpuChoice: ${cpuChoice} user_score: ${user_score} computer_score: ${computer_score}`);
         
-    };
+        
+       const healthbar  = Array.from(document.querySelectorAll(".health-bar-cpu, .health-bar-user"));
+       const contextCPU = healthbar[0].getContext("2d");
+       const contextUser = healthbar[1].getContext("2d");
+
+        let computedStyleUser = getComputedStyle(healthbar[1]);
+        let computedStyleComputer = getComputedStyle(healthbar[0]);
+
+        let currentMaxWidthUser = parseFloat(computedStyleUser.maxWidth);
+        let currentMaxWidthComputer = parseFloat(computedStyleComputer.maxWidth);
+
+        let colorOfHealthBar = computedStyleComputer.color;
+
+        const update = (UserScore, ComputerScore) => {
+        
+      }
+       update(user_score, computer_score);
+      
+  };
     setRandomImage();
     playGame();
     
