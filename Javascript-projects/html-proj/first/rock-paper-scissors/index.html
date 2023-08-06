@@ -50,8 +50,7 @@
         border: 2px solid black;
         width: 50%;
         background-color:#E2CDAE;
-        position: relative;
-        left: 12rem;
+        margin: 5px auto;
     }
     .main .play-area img{
         width:50%;
@@ -62,12 +61,12 @@
         flex-direction: column;
         margin: 2rem;
         border: 2px solid black;
-        height: 60vh;
+        height: 48.8vh;
     }
     .main .play-area .user{
         margin: 2rem;
         border: 2px solid black;
-        height: 60vh;
+        height: 48.8vh;
 
     }
     .play-area ol li{
@@ -82,6 +81,7 @@
         border: 2px solid black;
     }
     .main .play-area .cpu .health-bar-cpu{
+        display: block;
         margin-top: 2rem;
         padding: 2rem;
         min-width: 1%;
@@ -97,6 +97,7 @@
         justify-content: center;
     }
     .main .play-area .user .health-bar-user{
+        display: block;
         margin-top: 2rem;
         padding: 2rem;
         min-width: 1%;
@@ -125,7 +126,7 @@
         background-color: #FF80ED;
     }
     .main .player-input ol li{
-        height: 6%rem;
+        height: 6rem;
         width: 50%;
         border: 1px solid black;
         background-color: aqua;
@@ -142,19 +143,19 @@
         </div>
      <div class="play-area">
         <div class="cpu">
-                <h2>CPU Score: <span class="score"></span> </h2>
+                <h2>CPU </h2>
                 <div class="cpu-img-div"> <img src="" alt="random-images" srcset="" class="cpu-img">
                 </div>
-                <div class="health-bar-cpu">
+                <canvas class="health-bar-cpu">
                    
-                </div> 
+                </canvas> 
         </div>
         <div class="user">
-            <h2>User Score: <span class="score"></span></h2>
+            <h2>User </h2>
             <div class="user-img-div"> <img src="" alt="random-images" srcset="" class="user-img">
             </div>
-            <div class="health-bar-user">
-            </div> 
+            <canvas class="health-bar-user">
+            </canvas> 
         </div>
         <div class="player-input">
             <ol class="choices">
