@@ -93,7 +93,7 @@ const getRandomImage = () =>{
 
       // playLogic
      // creating a new async function... playGame this function will handle all the logic of the game
-     
+     const winCondition = 5;
     const playGame = async() => 
     {
        let userChoice = await setUserChoice;
@@ -106,24 +106,44 @@ const getRandomImage = () =>{
         console.log(`userChoice: ${userChoice} cpuChoice: ${cpuChoice} user_score: ${user_score} computer_score: ${computer_score}`);
         
         
-       const healthbar  = Array.from(document.querySelectorAll(".health-bar-cpu, .health-bar-user"));
-       const contextCPU = healthbar[0].getContext("2d");
-       const contextUser = healthbar[1].getContext("2d");
+          // getting the healthbar
+          const healthbar  = Array.from(document.querySelectorAll(".health-bar-cpu, .health-bar-user"));
+          const contextCPU = healthbar[0].getContext("2d");
+          const contextUser = healthbar[1].getContext("2d");
 
-        let computedStyleUser = getComputedStyle(healthbar[1]);
-        let computedStyleComputer = getComputedStyle(healthbar[0]);
+          // computer
+          let currentHeightComputer = healthbar[0].height;
+          let currentWidthComputer = healthbar[0].width;
+          // User
+          let currentWidthUser = healthbar[1].width;
+          let currentHeightUser = healthbar[1].height;
+          // color
+          let colorOfHealthBar = "green";
+          // maxhealth 
+          let healthCpu = 100;
+          let healthUser = 100;
 
-        let currentMaxWidthUser = parseFloat(computedStyleUser.maxWidth);
-        let currentMaxWidthComputer = parseFloat(computedStyleComputer.maxWidth);
+        let healthbarCpu = new HealthBar(currentWidthComputer,currentHeightComputer, healthCpu, colorOfHealthBar);
+        let healthbarUser = new HealthBar(currentWidthUser,currentHeightUser,healthUser, colorOfHealthBar);
 
-        let colorOfHealthBar = computedStyleComputer.color;
+        const frame =() =>{ 
+            if(user_score> computer_score){
+              contextCPU.fillRect(0, 0, healthbarCpu.currentWidthComputer, healthbarCpu.currentHeightComputer)
+              healthbarCpu.show(contextCPU);
+            }
+            else if (computer_score> user_score){
+              contextUser.fillRect(0, 0, healthbarUser.currentWidthUser, healthbarUser.currentHeightUser)
+              healthbarUser.show(contextUser);
 
-        const update = (UserScore, ComputerScore) => {
-        
-      }
-       update(user_score, computer_score);
-      
-  };
-    setRandomImage();
+            }
+            requestAnimationFrame(frame);
+        }
+        frame();
+        while(user_score!== winCondition && computer_score !== winCondition){
+          playGame();
+        }
+      };
     playGame();
+    setRandomImage();
+    
     

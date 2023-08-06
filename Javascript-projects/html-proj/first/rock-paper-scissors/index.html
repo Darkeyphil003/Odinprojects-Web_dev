@@ -6,6 +6,7 @@
     <title>Document</title>
 
     <script src="rockPaperScissor.js" defer></script>
+    <script src="health-bar.js" defer></script>
 </head>
 <style>
 
@@ -61,12 +62,12 @@
         flex-direction: column;
         margin: 2rem;
         border: 2px solid black;
-        height: 48.8vh;
+        height: 40vh;
     }
     .main .play-area .user{
         margin: 2rem;
         border: 2px solid black;
-        height: 48.8vh;
+        height: 40vh;
 
     }
     .play-area ol li{
@@ -82,10 +83,9 @@
     }
     .main .play-area .cpu .health-bar-cpu{
         display: block;
+        height: 3rem;
         margin-top: 2rem;
-        padding: 2rem;
-        min-width: 1%;
-        max-width: 100%;
+        width: 100%;
         background-color: green;
     }
     .main .play-area .user-img{
@@ -99,9 +99,8 @@
     .main .play-area .user .health-bar-user{
         display: block;
         margin-top: 2rem;
-        padding: 2rem;
-        min-width: 1%;
-        max-width: 100%;
+        height: 3rem;
+        width: 100%;
         background-color: green;
     }
     .main .player-input img{
