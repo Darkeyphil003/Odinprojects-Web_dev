@@ -1,5 +1,8 @@
- class HealthBar{
+ class HealthBar extends PlayGame{
     constructor(width, height, maxhealth,  color){
+    super(userchoice,cpuchoice)
+    this.userchoice = userchoice;
+    this.cpuchoice = cpuchoice;
     this.width = width;
     this.health = maxhealth;
     this.maxhealth = maxhealth;

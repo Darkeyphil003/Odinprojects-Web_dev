@@ -6,9 +6,10 @@
     <title>Document</title>
 
     <script src="rockPaperScissor.js" defer></script>
-    <script src="health-bar.js" ></script>
     <script src="play-game.js" ></script>
+    <script src="health-bar.js" ></script>
     <script src="array-funcs.js" ></script>
+    <script src="round-funcs.js" ></script>
 
 </head>
 <style>
@@ -134,10 +135,13 @@
     .main .player-input ol li{
         width: 60%;
         height: 5rem;
-        border: 3px solid black;
+        border: 2px solid black;
         background-color: aqua;
         list-style: none;
         padding: 2rem;
+    }
+    .main .player-input ol li:nth-child(-n+2){
+        border-right: none;
     }
 
     

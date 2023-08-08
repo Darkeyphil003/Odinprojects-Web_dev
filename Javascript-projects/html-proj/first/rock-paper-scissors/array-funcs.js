@@ -11,7 +11,7 @@ class ArrayFunc{
        document.src = this.imgRandom();
     }
 
-    equalArray = (sampleArray)=>{
+    setImgs = (sampleArray)=>{
         for(let i =0; i<sampleArray.length && i< this.array.length; i++ ){
                 sampleArray[i].querySelector("img").src = this.array[i]
         }
