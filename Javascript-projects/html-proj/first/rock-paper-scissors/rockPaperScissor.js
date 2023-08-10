@@ -29,9 +29,9 @@
   // round functionalities
   roundCount.roundUpdate();
   //  game being started
-  let game = new PlayGame();
-
-  game.choiceEvaluate();
-
-
+  let game = new PlayGame(choices);
+ 
+  
+game.gameUpdate();
+ 
 
