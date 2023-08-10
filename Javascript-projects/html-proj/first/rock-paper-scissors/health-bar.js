@@ -1,11 +1,16 @@
- class HealthBar{
+ class HealthBar extends PlayGame{
     constructor(width, height, maxhealth,  color){
+    super(userchoice,cpuchoice)
+    this.userchoice = userchoice;
+    this.cpuchoice = cpuchoice;
     this.width = width;
     this.health = maxhealth;
     this.maxhealth = maxhealth;
     this.height = height;
     this.color = color;
     this.maxwidth = width
+    this.x = 0;
+    this.y = 0;
    }
    
    show = (context) => 
@@ -13,8 +18,8 @@
                 context.lineWidth = 3;
                 context.strokeStyle = "#333";
                 context.fillStyle = this.color;
-                context.fillRect(0, 0,this.width,this.height)
-                context.strokeRect(0, 0, this.width, this.height)
+                context.fillRect(this.x, this.y,this.width,this.height)
+                context.strokeRect(this.x, this.y, this.width, this.height)
         }
 
         updateHealth = (val) => {
