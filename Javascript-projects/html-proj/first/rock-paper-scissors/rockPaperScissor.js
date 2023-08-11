@@ -28,8 +28,7 @@
   // round functionalities
   roundCount.roundUpdate();
   //  game being started
-    // let game = new PlayGame(choices, healthbar.height, healthbar.width, 100, "green" )  
-  let game = new PlayGame(choices );  
+  let game = new PlayGame(choices);
  
   
 game.gameUpdate();
