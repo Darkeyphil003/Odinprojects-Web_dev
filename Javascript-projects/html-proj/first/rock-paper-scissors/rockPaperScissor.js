@@ -10,9 +10,8 @@
       ]
   // initialize all the dom elements
   let roundcount = document.querySelector(".round-count");
-  let choices = document.querySelector(".choices").getElementsByTagName("li");
-  console.log(choices);
 
+  let choices = document.querySelector(".choices").getElementsByTagName("li");
 
   // initialize objects
   const randomImgCpu = new ArrayFunc(meme_pics);
@@ -29,9 +28,10 @@
   // round functionalities
   roundCount.roundUpdate();
   //  game being started
-  let game = new PlayGame();
-
-  game.choiceEvaluate();
-
-
+    // let game = new PlayGame(choices, healthbar.height, healthbar.width, 100, "green" )  
+  let game = new PlayGame(choices );  
+ 
+  
+game.gameUpdate();
+ 
 
