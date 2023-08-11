@@ -1,14 +1,16 @@
-    class PlayGame{
+    class PlayGame {
         constructor(array){
+    //   super(array,height, width, maxheatlh, color);
         this.elements = array
         this.wincondition =5;
         this.userscore = 0;
         this.cpuscore = 0;
+      
         }
-        
+    
         userChoice = () =>{
-            return new Promise((resolve) =>{
-                for(let index = 0; index< this.elements.length; index++){
+                return new Promise((resolve) =>{
+                    for(let index = 0; index< this.elements.length; index++){
                     this.elements[index].addEventListener("click" ,() =>{
                       resolve(index);
                     })
@@ -36,21 +38,33 @@
                 roundCount.roundUpdate();
                 
             }
-        });
-    }
-
-    setCpuChoice = async () => {
-        return new Promise((resolve) => {
-            for (let index = 0; index < this.elements.length; index++) {
-                let randomIndex = Math.floor(Math.random() * this.elements.length);
-                resolve(randomIndex);
+            else if(userchoice === 0 && cpuchoice === 1 ||
+               userchoice === 1 && cpuchoice === 2 ||
+               userchoice === 2 && cpuchoice === 0 ){
+                roundCount.roundUpdate();
+                this.userscore++;
+               }
+            else {
+                roundCount.roundUpdate();
+                this.cpuscore++;
             }
-        });
+            if(this.userscore <= this.wincondition && this.cpuscore <= this.wincondition ){
+                let state1 =  this.userscore === this.wincondition
+                let state2  = this.cpuscore === this.wincondition
+                        if( state1|| state2){
+                          if(state1 ===true){
+                            alert(`${this.user} has won!`)
+                          }
+                           if (state2 ===true){
+                            alert(`${this.cpu} has won!`)
+                          }
+                            return;
+                        }
+                console.log(`${userchoice} ${cpuchoice} ${this.userscore} ${this.cpuscore}`);
+                        this.gameUpdate();
+            }
+
+        }
+        
+        
     }
-    
-    choiceEvaluate = async () => {
-        let userchoice = await this.setUserChoice();
-        let cpuchoice = await this.setCpuChoice();
-        console.log(`${userchoice} ${cpuchoice}`);
-    }
-}
