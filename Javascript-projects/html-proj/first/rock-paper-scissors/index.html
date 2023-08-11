@@ -64,7 +64,6 @@
         height: auto;
     }
     .main .play-area .cpu{
-        flex-direction: column;
         margin: 2rem;
         border: 2px solid black;
         height: 49vh;
@@ -90,10 +89,11 @@
     .main .play-area .cpu .health-bar-cpu{
         display: block;
         height: 3rem;
-        margin-top: 2.8rem;
+        margin: 2.8rem auto;
         width: 100%;
         background-color: green;
         border: 2px solid black;
+        
     }
     .main .play-area .user-img{
         border: 2px solid black;
@@ -153,7 +153,7 @@
         </div>
      <div class="play-area">
         <div class="cpu">
-                <h2 id="#cpu">CPU </h2>
+                <h2 >CPU </h2>
                 <div class="cpu-img-div"> <img src="" alt="random-images" srcset="" class="cpu-img">
                 </div>
                 <canvas class="health-bar-cpu">
@@ -161,7 +161,7 @@
                 </canvas> 
         </div>
         <div class="user">
-            <h2 id="#user">User </h2#>
+            <h2 >User </h2>
             <div class="user-img-div"> <img src="" alt="random-images" srcset="" class="user-img">
             </div>
             <canvas class="health-bar-user">
