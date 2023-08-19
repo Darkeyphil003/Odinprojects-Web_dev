@@ -18,3 +18,6 @@ When the delete button is clicked it takes the interface.value += interface.valu
 add a functionality that when the "." operator
 add a tracker for the current index of the operator and assign the previousstatements as a variable same as the afterstatements
 add the functionality of equals button this would be done the last
+
+
+How would the "." operator would move

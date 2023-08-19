@@ -1,6 +1,10 @@
 class Calculator{
   constructor(display) {
    this.display = display;
+   this.previousExpression =""
+   this.nextExpression = ""
+   this.operator = "";
+ 
   }
   clear(){
      this.display.value = ""
@@ -8,36 +12,126 @@ class Calculator{
   delete(){
     this.display.value = this.display.value.slice(0,-1);
   }
-  
-  selectOperator(operator){
+  checkDuplicate(operator){
     const currentIndex = this.display.value.indexOf(operator);
-    this.previousExpression = this.display.value.slice(0,currentIndex);
-    this.nextExpression = this.display.value.slice(currentIndex);
-
+    const previousIndex = this.display.value.indexOf(operator, currentIndex-1);
+    const nextIndex = this.display.value.indexOf(operator, currentIndex+1);
+    // Edge case for when the user go for the operator first without any number
+    const checkForEmptyString = ()=>{
+      if(this.display.value === "")return true;
+      else return false
+      
+    }
+    // Throw @Error if it is empty
+    if(checkForEmptyString()) throw new Error(`String is empty. Invalid for ${operator}`);
+    
+    // Checking for the immediate left and right of the currentIndex of the operator
+    if (this.display.value[previousIndex] === operator ||
+      (this.display.value.length && this.display.value[nextIndex] === operator)) {
+    console.error(`Invalid use of ${operator}`);
+  } else {
+    // Only add the operator if there are no duplicates
+    this.display.value += operator;
   }
- }
+    
+  }
+  
+    selectOperator(operator){
+      this.operator = operator;
+    const currentIndex = this.display.value.indexOf(operator);
+    this.previousExpression = this.display.value.slice(0, currentIndex);
+    this.nextExpression = this.display.value.slice(currentIndex + 1);
+      
+    }
+    compute(){
+      let computation;
+      const prev = parseFloat(this.previousExpression);
+      const next = parseFloat(this.nextExpression);
+      if(isNaN(prev)|| isNaN(next)) throw new Error("Invalid Expression!")
+      switch (this.operator) {
+        case "+":
+          computation = prev + next
+          break;
+          case  "x":
+          computation = prev * next
+          break;
+          case  "/":
+          computation = prev / next
+          break;
+          case  "-":
+          computation = prev - next
+          break;
+      
+        default:
+          break;
+      
+      }
+      this.display.value = computation.toString();
+      return computation
+    } 
+  }
 
  const operators = {
   "+":() => {
-    if(Calc.display.value.includes(Object.keys(operators)[0])) return;
-    else Calc.display.value += Object.keys(operators)[0]
+    const operator = Object.keys(operators)[0];
+    Calc.selectOperator(operator);
+    try{
+      Calc.checkDuplicate(operator);
+    }
+    catch(error){
+      console.error(error);
+    }
     
   }, 
   "/": ()=>{
-    if(Calc.display.value.includes(Object.keys(operators)[1])) return;
-    else Calc.display.value += Object.keys(operators)[1]
+    const operator = Object.keys(operators)[1];
+    Calc.selectOperator(operator);
+    try{
+      Calc.checkDuplicate(operator);
+    }
+    catch(error){
+      console.error(error);
+    }
   }, 
   "x":()=>{
-    if(Calc.display.value.includes(Object.keys(operators)[2])) return;
-    else Calc.display.value += Object.keys(operators)[2]
+    const operator = Object.keys(operators)[2];
+    Calc.selectOperator(operator);
+    try{
+      Calc.checkDuplicate(operator);
+    }
+    catch(error){
+      console.error(error);
+    }
   },
    "-":()=>{
-    if(Calc.display.value.includes(Object.keys(operators)[3])) return;
-    else Calc.display.value += Object.keys(operators)[3]
+    const operator = Object.keys(operators)[3];
+    Calc.selectOperator(operator);
+    try{
+      Calc.checkDuplicate(operator);
+    }
+    catch(error){
+      console.error(error);
+    }
   },
    ".":()=>{
-    if(Calc.display.value.includes(Object.keys(operators)[4])) return;
-    else Calc.display.value += Object.keys(operators)[4]
+    const operator = Object.keys(operators)[4];
+    Calc.selectOperator(operator);
+    try{
+      Calc.checkDuplicate(operator);
+    }
+    catch(error){
+      console.error(error);
+    }
+  },
+  "=":()=>{
+    // when the equals button is clicked
+    try {
+      
+      Calc.clear();
+      Calc.display.value = Calc.compute();
+    } catch (error) {
+      console.error(error);
+    }
   }
  }
 
