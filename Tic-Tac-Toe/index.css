@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&family=Ubuntu:wght@400;700&display=swap');
+:root{
+    --card-height:  13rem;
+    --card-width:   6rem;
+}
+
+*{
+    font-size: 62.5%;
+    font-family: "Ubuntu", "Roboto", Arial, Helvetica, sans-serif !important;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+body{
+    background-color:#1a2a32;
+}
+
+
+.top-bar{
+
+}
+
+.tic
+{
+    width: 60rem;
+    height: 60rem;    
+}
