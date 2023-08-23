@@ -12,30 +12,40 @@
    
 </head>
 <body>
+  <section class="mod hidden">
+    <div class="coin">
+      <div class="heads"><img src="Heads.png" alt=""></div>
+      <div class="tails"><img src="Tails.png" alt=""></div>
+    </div>
+    <button class="btn btn-primary confirm hidden"> Confirm</button>
+  </section>
+  <div class="overlay hidden"></div>
+  
+
     <main class="container tic d-flex align-items-center justify-content-center ">
         <section class="row d-flex tic-tac  justify-content-around pt-3">
                 <div class="exandoh"><i class="fa-solid fa-x "></i><i class="fa-solid fa-o"></i></div>
-                <div class="col-7 turn "> <h3> <span id = "rng-turn">Player  </span>Turn</h3></div>
+                <div class="col-8 turn "> <h3> <span id = "rng-turn"> </span>Turn</h3></div>
                 <div class="dropdown col-4">
-                    <button class="btn btn-secondary dropdown-toggle w-100 fs-3" type="button" data-bs-toggle="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle w-100 fs-4" type="button" data-bs-toggle="dropdown">
                       Action Here
                     </button>
                       <ul class="dropdown-menu link-opacity-50-hover">
-                        <li><a class="dropdown-item fs-3" href="#">Reset Round</a></li>
-                        <li><a class="dropdown-item fs-3" href="#">Reset Game</a></li> 
+                        <li><a class="dropdown-item fs-4" href="#">Reset Round</a></li>
+                        <li><a class="dropdown-item fs-4" href="#">Reset Game</a></li> 
                       </ul>
                   </div>
 
                     <ol class="d-grid text-center mt-2 align-items-center" >
-                            <li id="1"></li>
-                            <li id="2"></li>
-                            <li id="3"></li>
-                            <li id="4"></li>
-                            <li id="5"></li>
-                            <li id="6"></li>
-                            <li id="7"></li>
-                            <li id="8"></li>
-                            <li id="9"></li>
+                            <li><div class="exandoh"><i class="fa-solid fa-x hidden"></i><i class="fa-solid fa-o  hidden"></i></div></li>
+                            <li> <div class="exandoh"><i class="fa-solid fa-x hidden"></i><i class="fa-solid fa-o hidden"></i></div></li>
+                            <li> <div class="exandoh"><i class="fa-solid fa-x hidden"></i><i class="fa-solid fa-o hidden"></i></div></li>
+                            <li> <div class="exandoh"><i class="fa-solid fa-x hidden"></i><i class="fa-solid fa-o hidden"></i></div></li>
+                            <li> <div class="exandoh"><i class="fa-solid fa-x hidden"></i><i class="fa-solid fa-o hidden"></i></div></li>
+                            <li> <div class="exandoh"><i class="fa-solid fa-x hidden"></i><i class="fa-solid fa-o hidden"></i></div></li>
+                            <li> <div class="exandoh"><i class="fa-solid fa-x hidden"></i><i class="fa-solid fa-o hidden"></i></div></li>
+                            <li> <div class="exandoh"><i class="fa-solid fa-x hidden"></i><i class="fa-solid fa-o hidden"></i></div></li>
+                            <li> <div class="exandoh"><i class="fa-solid fa-x hidden"></i><i class="fa-solid fa-o hidden"></i></div></li>
                             <li id="playerScore" ><span id="player-score" > </span> <br>Player <br>Wins</li>
                             <li id="ties"> ties: <span id="tieValue"></span></li>
                             <li id="cpuScore"><span id="cpu-score" > </span> <br>Cpu <br>Wins</li>

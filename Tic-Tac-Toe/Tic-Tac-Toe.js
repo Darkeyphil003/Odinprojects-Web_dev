@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", () =>{
     cpuScore.textContent = scores.cpuScoreValue;
     playerScore.textContent = scores.playerScoreValue;
     tiesCount.textContent = scores.ties
-})
+})  
+
 
 
 
