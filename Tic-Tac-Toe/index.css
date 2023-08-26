@@ -16,6 +16,10 @@ body{
     left: 3rem;
     font-size: 2rem;
 }
+.rng-turn{
+    font-size: 2rem;
+    color: #c1c142;
+}
 .mod{
     display: flex;
     flex-direction: column;
