@@ -5,14 +5,20 @@
     let playerScore = document.getElementById("player-score");
     let cpuScore = document.getElementById("cpu-score");
     let tiesCount = document.getElementById("tieValue");
-    let ticExandOh = document.querySelector(".tic-tac .exandoh:first-child");
+    let rngTurn = document.querySelector("#rng-turn");
 
+    
+    const ticExandOhX = document.querySelector(".tic-tac .exandoh .fa-x");
+    const ticExandOhO = document.querySelector(".tic-tac .exandoh .fa-o");
     const overlay = document.querySelector(".overlay");
     const startModal = document.querySelector(".mod");
     const coin = document.querySelector(".coin");
 
 
-    console.log(ticExandOh);
+// .exandoh x is fa-x and o is fa-o
+// TODO :  board's structure
+// TODO : CPU logic
+// TODO : Assigning the player's and CPU's turn
     
     let scores ={
         playerScoreValue:0, 
@@ -31,8 +37,7 @@
         overlay.classList.remove("hidden");
 
     })
-
-    flipCoin = () =>{
+let flipCoin = () =>{
         // removing event listener here to prevent duplicate clicks after animation loads
         coin.removeEventListener("click", flipCoin)
         let i = Math.floor(Math.random() * coinImg.length);
@@ -46,7 +51,8 @@
             coinResolved = true; 
             coin.style.cursor = "default";
          }, 100);
-          resolve(heads++);
+          resolve("heads");
+          heads++
          }
          else{
              setTimeout(() => {  
@@ -54,12 +60,13 @@
                 coinResolved = true;
                 coin.style.cursor = "default";
              }, 100);
-             resolve(tails++);
+             resolve("tails")
+             tails++
          }
          primarybtn.classList.remove("hidden");
     
        })
-       
+       coin.addEventListener("click" , flipCoin);
     //    triggers after coinFlip has been resolved
         setTimeout(() => {
             coin.style.cursor = "default";
@@ -69,13 +76,51 @@
             else coin.addEventListener("click" , flipCoin);
         }, 3100);
         console.log(heads,tails);
+    // Just a simple promise return for playerTurn for later purposes 
+        const showPlayerTurn = async() =>{
+            let playerTurn = await coinFlip 
+            return playerTurn
+        }
+        return showPlayerTurn()
     }
+    let playerTurn
+    //  assigns some variables here for player
+    const assignPlayerTurn = () => {
+        // Assign the click event listener to the coin
+        coin.addEventListener("click", async () => {
+            playerTurn = await flipCoin();
+            if (playerTurn === "heads") {
+                ticExandOhX.classList.remove("hidden");
+                ticExandOhO.classList.add("hidden");
+                rngTurn.textContent = "Player";
+            } else if (playerTurn === "tails") {
+                ticExandOhO.classList.remove("hidden");
+                ticExandOhX.classList.add("hidden");
+                rngTurn.textContent = "Player";
+            }
+            console.log(playerTurn);
+    
+            // After the coin flip is resolved, remove the event listener
+            coin.removeEventListener("click", this);
+        });
+    };
+    
+    assignPlayerTurn();
+   
+    
+    
+    
+    
+    
+    assignPlayerTurn();
+
     // event listeners for both coin and primary button
-    coin.addEventListener("click" , flipCoin)
+
     primarybtn.addEventListener("click", () =>{
         startModal.classList.add("hidden");
         overlay.classList.add("hidden");
     })
+    
     // update scores
     cpuScore.textContent = scores.cpuScoreValue;
     playerScore.textContent = scores.playerScoreValue;
