@@ -1,127 +1,131 @@
+// Dom Elements
+const coinImg = document.querySelector(".mod").getElementsByTagName("img");
+const primarybtn = document.querySelector(".confirm");
+const ticTacToe = document.querySelectorAll(".ticTacToe li");
+const ticExandOhX = document.querySelector(".tic-tac .exandoh .fa-x");
+const ticExandOhO = document.querySelector(".tic-tac .exandoh .fa-o");
+const overlay = document.querySelector(".overlay");
+const startModal = document.querySelector(".mod");
+const coin = document.querySelector(".coin");
+const lists = document.querySelectorAll(".ticTacToe li");
 
-    // Dom Elements
-    let coinImg = document.querySelector(".mod").getElementsByTagName("img");
-    let primarybtn = document.querySelector(".confirm");
-    let playerScore = document.getElementById("player-score");
-    let cpuScore = document.getElementById("cpu-score");
-    let tiesCount = document.getElementById("tieValue");
-    let rngTurn = document.querySelector(".rng-turn");
+let playerScore = document.getElementById("player-score");
+let cpuScore = document.getElementById("cpu-score");
+let tiesCount = document.getElementById("tieValue");
+let rngTurn = document.querySelector(".rng-turn");
 
-    const ticTacToe = document.querySelectorAll(".ticTacToe li");
-    const ticExandOhX = document.querySelector(".tic-tac .exandoh .fa-x");
-    const ticExandOhO = document.querySelector(".tic-tac .exandoh .fa-o");
-    const overlay = document.querySelector(".overlay");
-    const startModal = document.querySelector(".mod");
-    const coin = document.querySelector(".coin");
 
-    let cardPositions
-    ticTacToe.forEach(element => {
-        cardPositions = Array.from(ticTacToe).slice(0,ticTacToe.length-3);
-    });
-  
 // .exandoh x is fa-x and o is fa-o
-// TODO :  board's structure
+// TODO : board's structure
 // TODO : CPU logic
 // TODO : Assigning the player's and CPU's turn
-    
-    let scores ={
-        playerScoreValue:0, 
-        cpuScoreValue:0,
-        ties:0
-    }
-    let headOrTail = {
-        heads:0,
-        tails:0, 
-        
-    }
-    let tails = headOrTail.tails
-    let heads = headOrTail.heads
-    let coinResolved = false;
-    // loading up the startmodal
-    document.addEventListener("DOMContentLoaded" , () =>{
-        startModal.classList.remove("hidden");
-        overlay.classList.remove("hidden");
-    })
-let flipCoin = async() =>{
-        let i = Math.floor(Math.random() * coinImg.length);
-        coin.style.animation = "none";
-        //  To decide which one has O or X (Player or CPU)
-       const coinFlip = new Promise((resolve) => {
-        if(i) { setTimeout(() => {
-            coin.style.animation = "spin-heads 3s forwards"
-            coin.style.cursor = "default";
-            }, 100);
-            resolve("heads");
-            coinResolved = true;
-            heads++
-            // removing event listener here to prevent duplicate clicks after animation loads
-            coin.removeEventListener("click", flipCoin);
-         }
-         else{
-             setTimeout(() => {  
-                coin.style.animation = "spin-tails 3s forwards"
-                coin.style.cursor = "default";
-             }, 100);
-                 coinResolved = true;
-                resolve("tails");
-                tails++
-                  // removing event listener here to prevent duplicate clicks after animation loads
-            coin.removeEventListener("click", flipCoin);
-         }
-         primarybtn.classList.remove("hidden");
-       })
-       console.log(heads,tails);
-       const playerTurn = await coinFlip;
-       console.log(playerTurn);
-   
-       return playerTurn;
+// TODO : Create a new round based function/Class for switching betweent the player and the CPU's turn.
+
+// TODO : The round function evaluates the cardcontainers for winning patterns: refer to notepad.
+// TODO : For the CPU when the player's turn has been decided... CPU's turn should also be decided.
+// TODO : Create a random generation AI that picks one cardContainer as it's turn. 
+// !important: Perform an evaluation for every turn.
+// TODO : apply the player's decision into a clickable listener
+// TODO : Update the score dynamically when the round has ended and a winner is decided.
+// TODO : To update the score inside the round-based system.
+let scores = {
+    PLAYERScore:0,
+    CPUScore:0,
+    Ties:0
+}
+let coinLogic = {
+    heads:0,
+    tails:0,
+    coinResolved:false
 }
 
-    //  assigns some variables here for player
-    const assignValues = async() => {
-        // Assign the click event listener to the coin
-        let PLAYER = await flipCoin();
-            let CPU;
-           
-            // first turn
-                if (PLAYER === "heads") {
-                    ticExandOhX.classList.remove("hidden");
-                    ticExandOhO.classList.add("hidden");
-                    rngTurn.textContent = "Player" ;
-                   CPU = "tails"
+// Destructuring these for later use
+let {PLAYERScore, CPUScore,Ties} = scores;
+let {heads, tails, coinResolved} = coinLogic;
+// Setting scores:
+playerScore.textContent = PLAYERScore;
+cpuScore.textContent = CPUScore;
+tiesCount.textContent = Ties;
+// Event Listeners
+document.addEventListener("DOMContentLoaded", () => {
+    startModal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+});
+flipCoin();
+let cardPositions = Array.from(lists).splice(0, lists.length-3);
 
-                } else if (PLAYER === "tails") {
-                    ticExandOhX.classList.remove("hidden");
-                    ticExandOhO.classList.add("hidden");
-                    rngTurn.textContent = "CPU";
-                    CPU = "heads";
+primarybtn.addEventListener("click", () => {
+    startModal.classList.add("hidden");
+    overlay.classList.add("hidden");
+    // Start the game by assigning values and handling turns
+    assignValues();
+});
 
+// result of the flipCoin
+let result;
+let CPU;
+// Function to handle the coin flip
+function flipCoin() {
+  
+        let i = Math.floor(Math.random() * coinImg.length);
+       
+        coin.addEventListener("click",  () => {
+            if (!coinResolved) {
+               
+            if (i) {
+                    coin.style.animation = "spin-heads 3s forwards";
+                    coin.style.cursor = "default";
+                    heads++;
+                   result = "heads";
+            } 
+            else {
+                    coin.style.animation = "spin-tails 3s forwards";
+                    coin.style.cursor = "default";
+                    tails++;
+                   result = "tails";
+                   
             }
-            
-            console.log(CPU);
-            
-            cardPositions.forEach(position => {
-                position.addEventListener("click" , ()=>{
-                    console.log(position);
-                })
-               });
-   
-    };
-   
-   
+                coinResolved = true;
+                setTimeout(() => {
+                    primarybtn.classList.remove("hidden");
+                }, 3100);
+                
+            }
+        });
+       
+        console.log(heads,tails);
+  
+}
+let playerHeads =()=>{
+    ticExandOhX.classList.remove("hidden");
+    ticExandOhO.classList.add("hidden");
+    rngTurn.textContent = "Player";
+} 
+let playerTails =()=>{
+    ticExandOhX.classList.remove("hidden");
+    ticExandOhO.classList.add("hidden");
+    rngTurn.textContent = "CPU";
+}
+// Function to assign values for player and CPU turns
+ function assignValues() {
+    let PLAYER =result;
+  
+// First turn
+    if (PLAYER === "heads") {
+       playerHeads();
+       CPU = "tails";
+    } else if(PLAYER === "tails"){
+       playerTails();
+        CPU = "heads";
+    }
+    console.log(PLAYER);
+    console.log(CPU);
+    // Apply click event listener to card positions
+    cardPositions.forEach((position) => {
+        position.addEventListener("click", () => {
+            console.log(position);
+            // Update game state and check for win/draw conditions
+        });
+    });
 
-    // event listeners for both coin and primary button
-    coin.addEventListener("click" , flipCoin);
-    primarybtn.addEventListener("click", () =>{
-        startModal.classList.add("hidden");
-        overlay.classList.add("hidden");
-       assignValues();
-    })
-    
-    // update scores
-    cpuScore.textContent = scores.cpuScoreValue;
-    playerScore.textContent = scores.playerScoreValue;
-    tiesCount.textContent = scores.ties
-
- 
-
+}
