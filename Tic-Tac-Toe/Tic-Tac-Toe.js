@@ -19,11 +19,7 @@ let rngTurn = document.querySelector(".rng-turn");
 // TODO : board's structure
 // TODO : CPU logic
 // TODO : Assigning the player's and CPU's turn
-// TODO : Create a new round based function/Class for switching betweent the player and the CPU's turn.
 
-// TODO : The round function evaluates the cardcontainers for winning patterns: refer to notepad.
-// TODO : For the CPU when the player's turn has been decided... CPU's turn should also be decided.
-// TODO : Create a random generation AI that picks one cardContainer as it's turn. 
 // !important: Perform an evaluation for every turn.
 // TODO : apply the player's decision into a clickable listener
 // TODO : Update the score dynamically when the round has ended and a winner is decided.
@@ -33,19 +29,18 @@ let scores = {
     CPUScore:0,
     Ties:0
 }
-let coinLogic = {
-    heads:0,
-    tails:0,
-    coinResolved:false
-}
 
+let result;
+let CPU;
 // Destructuring these for later use
 let {PLAYERScore, CPUScore,Ties} = scores;
-let {heads, tails, coinResolved} = coinLogic;
 // Setting scores:
-playerScore.textContent = PLAYERScore;
-cpuScore.textContent = CPUScore;
-tiesCount.textContent = Ties;
+let updateScores = () => {
+    playerScore.textContent = PLAYERScore;
+    cpuScore.textContent = CPUScore;
+    tiesCount.textContent = Ties;
+}
+
 // Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
     startModal.classList.remove("hidden");
@@ -61,11 +56,15 @@ primarybtn.addEventListener("click", () => {
     assignValues();
 });
 
-// result of the flipCoin
-let result;
-let CPU;
+
 // Function to handle the coin flip
 function flipCoin() {
+    let coinLogic = {
+        heads:0,
+        tails:0,
+        coinResolved:false
+    }
+let {heads, tails, coinResolved} = coinLogic;
   
         let i = Math.floor(Math.random() * coinImg.length);
        
@@ -96,36 +95,115 @@ function flipCoin() {
         console.log(heads,tails);
   
 }
+
+// Function to apply X when player's turn is heads 
 let playerHeads =()=>{
     ticExandOhX.classList.remove("hidden");
     ticExandOhO.classList.add("hidden");
     rngTurn.textContent = "Player";
 } 
-let playerTails =()=>{
+// Function to apply O when player's turn is tails 
+
+let playerTails = () =>{
+    ticExandOhO.classList.remove("hidden");
+    ticExandOhX.classList.add("hidden");
+    rngTurn.textContent = "Player";
+}
+// Function to apply O when cpu's turn is tails 
+
+let cpuTails =()=>{
+    ticExandOhO.classList.remove("hidden");
+    ticExandOhX.classList.add("hidden");
+    rngTurn.textContent = "CPU";
+}
+
+let cpuHeads = () =>{
     ticExandOhX.classList.remove("hidden");
     ticExandOhO.classList.add("hidden");
     rngTurn.textContent = "CPU";
 }
 // Function to assign values for player and CPU turns
  function assignValues() {
-    let PLAYER =result;
-  
-// First turn
+    // result of the flipCoin
+
+let PLAYER = result;
+let CPUdecision
+let turns = {
+    playerturn:false,
+    cputurn:false
+}
+
+let {playerturn, cputurn} = turns;
+
+let assignPLAYERturn = () =>{
+   
+    playerturn = !playerturn;
+ }
+ let assignCPUTurn =() =>{
+     CPUdecision = Math.floor(Math.random() * cardPositions.length+1);
+    cputurn = !cputurn;
+     
+    console.log(CPUdecision);
+ }
+   
+    // First turn setting initial values
     if (PLAYER === "heads") {
-       playerHeads();
-       CPU = "tails";
-    } else if(PLAYER === "tails"){
-       playerTails();
+        playerHeads();
+        CPU = "tails";
+        assignPLAYERturn();
+     } else if(PLAYER === "tails"){
+        cpuTails();
+        assignCPUTurn();
         CPU = "heads";
-    }
-    console.log(PLAYER);
-    console.log(CPU);
+     }
+ 
+// TODO : Create a new round based function/Class for switching betweent the player and the CPU's turn.
+// TODO : Assigning the undo button's functionalities
+// TODO : The round function evaluates the cardcontainers for winning patterns: refer to notepad.
+// TODO : For the CPU when the player's turn has been decided... CPU's turn should also be decided.
+// TODO : Create a random generation AI that picks one cardContainer as it's turn. 
+ 
     // Apply click event listener to card positions
     cardPositions.forEach((position) => {
         position.addEventListener("click", () => {
-            console.log(position);
+            // assigning the card value's index from the position;
+            const exandohO = position.querySelector(".fa-o");
+            const exandohX = position.querySelector(".fa-x");
+
+
+            if(PLAYER === 'heads' && playerturn === true){
+            exandohX.classList.remove("hidden");
+            assignPLAYERturn();
+            assignCPUTurn();
+            playerHeads();
+            }
+            else if(PLAYER === "tails" && playerturn === true){
+                exandohO.classList.remove("hidden");
+                assignPLAYERturn();
+                assignCPUTurn();
+                playerTails();
+            }
+          
             // Update game state and check for win/draw conditions
         });
+      
+            //    setup for cpu logic later on
+           
+         function cpuTurn(){
+            if (CPU === "heads" && cputurn === true){
+                cpuTails();
+                cputurn =false;
+                playerturn = true;
+            }
+            else if( CPU === "tails" && cputurn === true){
+
+            };
+            let cpuindex = cardPositions[CPUdecision];
+            let cpuexandohO = cpuindex.querySelector(".fa-o");
+            let cpuexandohX = cpuindex.querySelector(".fa-x");
+            console.log(cpuexandohO, cpuexandohX);
+         } 
     });
 
+    
 }
